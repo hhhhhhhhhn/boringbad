@@ -1,0 +1,23 @@
+{
+  "name": "boringbad",
+  "version": "1.0.0",
+  "description": "A tool for extracting highlights from a long video.",
+  "main": "index.js",
+  "scripts": {
+    "run": "electron .",
+    "test": "node ./static/js/edit.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oekshido/boringbad.git"
+  },
+  "author": "oekshido",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oekshido/boringbad/issues"
+  },
+  "homepage": "https://github.com/oekshido/boringbad#readme",
+  "dependencies": {
+    "electron": "^8.2.0"
+  }
+}

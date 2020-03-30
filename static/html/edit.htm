@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>boringbad</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <script src="../js/edit.js"></script>
+</head>
+<body>
+    <div class="vidDiv">
+        <video id="vid"></video>
+    </div>
+    <div id="ui">
+        <div id="bar">
+            <div id="currentTime"></div>
+        </div>
+        <div id="bottom">
+            <button id="play">play</button>
+            <div id="time">time: 00.00s / 00.00s</div>
+            <button id="highlight">highlight</button>
+            <button id="undo">undo</button>
+            <button id="mark">mark</button>
+            <div id="last">last: none</div>
+            <button id="more">more...</button>
+        </div>
+        <div id="advanced">
+            <button id="undoMark">undo mark</button>
+            <div><p>playback speed: </p><input type="text" id="speed", value="1"></div>
+            <button id="export">export</button>
+        </div>
+    </div>
+</body>
+</html>
