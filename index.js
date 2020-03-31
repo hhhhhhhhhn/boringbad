@@ -7,6 +7,7 @@ function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1126,
         height: 720,
+        icon: "./static/images/boringbad.png",
         webPreferences: {
             nodeIntegration: true
         }
