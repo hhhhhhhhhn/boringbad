@@ -1,6 +1,6 @@
 {
   "name": "boringbad",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A tool for extracting highlights from a long video.",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,12 @@
   },
   "devDependencies": {
     "electron": "^8.2.0"
-  }
+  },
+  "build": {
+    "appId": "com.boringbad.app",
+    "productName": "boringbad",
+    "copyright": "Copyright (c) 2020 oekshido",
+    "win": {
+      "icon": "./static/images/boringbad.png"
+    }
 }
