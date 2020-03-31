@@ -7,4 +7,25 @@ function loadFile(){
     window.location.href = "./edit.htm"
 }
 
-window.onload = loadFile
+var marking = false
+
+function toggleMarks(){
+    if(marking){
+        ipcRenderer.send("!mark")
+        document.getElementById("marks").innerText = "create marks"
+        marking = false
+        return
+    }
+    ipcRenderer.send("mark")
+    document.getElementById("marks").innerText = "stop marking"
+    marking = true
+}
+
+ipcRenderer.on("text", (event, ...args)=>{
+    document.getElementById("info").innerText = args[0]
+})
+
+window.onload = function(){
+    document.getElementById("file").addEventListener("click", loadFile)
+    document.getElementById("marks").addEventListener("click", toggleMarks)
+}

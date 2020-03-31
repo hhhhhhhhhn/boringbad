@@ -1,0 +1,36 @@
+body{
+    font-family: sans-serif;
+}
+
+h1{
+    text-align: center;
+    font-size: 10vw;
+    margin-top: 30vh;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    text-align: center;
+    font-family: sans-serif;
+    background-color: #fff;
+    border: 1px solid #666;
+    font-size: 3vh;
+    margin: 3vw;
+}
+
+#info{
+    text-align: center;
+}
+
+
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}

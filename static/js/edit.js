@@ -1,5 +1,7 @@
 const { ipcRenderer } = require('electron')
 const { dialog } = require('electron').remote
+const fs = require('fs')
+const prompt = require('electron-prompt')
 
 function secondsToTime(seconds){
     seconds = Math.floor(seconds)
@@ -166,6 +168,10 @@ window.onload = function (){
         /**Adds marker to current time */
         var startPercent = 100 * videoElement.currentTime / videoElement.duration
         barElement.insertAdjacentHTML("beforeend", `<div class="mark" style="left: ${startPercent}vw"></div>`)
+        barElement.lastChild.addEventListener("contextmenu", (e)=>{
+            markerElements.splice(markerElements.indexOf(e.target), 1)
+            e.target.parentNode.removeChild(e.target)
+        })
         markerElements.push(barElement.lastChild)
     }
 
@@ -206,6 +212,34 @@ window.onload = function (){
 
     document.getElementById("export").addEventListener("click", exportClips)
 
+
+    async function importMarks(){
+        var file = dialog.showOpenDialogSync()[0]
+        var time = await prompt({title: "enter time", label:"where is the last mark? use HH:mm:ss.SS format", width: 500})
+        if(!(time && file)) return
+        var secs = 0
+        time = time.split(":")
+        for(var i = 0; i < time.length; i++){
+            if(Number(time[time.length - i - 1]) != NaN) secs += Number(time[time.length - i - 1]) * Math.pow(60, i)
+        }
+
+        var marks = []
+        var offset = Number(fs.readFileSync(file, "utf8").split("\n").slice(-2)[0]) - secs      // Last element is an empty string, so second to last is selected
+
+        for(var mrk of fs.readFileSync(file, "utf8").split("\n").slice(0, -1)) marks.push(Number(mrk) - offset)
+
+        for(var mrk of marks){
+            var startPercent = 100 * mrk / videoElement.duration
+            barElement.insertAdjacentHTML("beforeend", `<div class="mark" style="left: ${startPercent}vw"></div>`)
+            barElement.lastChild.addEventListener("contextmenu", (e)=>{
+                markerElements.splice(markerElements.indexOf(e.target), 1)
+                e.target.parentNode.removeChild(e.target)
+            })
+            markerElements.push(barElement.lastChild) 
+        }
+    }
+
+    document.getElementById("importMarks").addEventListener("click", importMarks)
 
 
     document.addEventListener("keydown", (e)=>{
