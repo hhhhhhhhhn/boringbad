@@ -4,7 +4,7 @@ Fast and simple video trimmer built in electron
 
 ## Usage
 
-First, select the video. Then create highlights using the `highlight` button or using the shift key. You can add markers with the `mark` button, or by pressing Ctrl+A (they can be deleted by right-clicking). When ready, click `more` and press the `export` button, select a folder, and your highlights will be exported.
+First, select the video. Then create highlights using the `highlight` button or using the shift key. You can add markers with the `mark` button, or by pressing Ctrl+A (they can be deleted by right-clicking). You can change the playback speed using the number keys. When ready, click `more` and press the `export` button, select a folder, and your highlights will be exported.
 
 ### Mark tool
 

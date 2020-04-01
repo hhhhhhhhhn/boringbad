@@ -261,6 +261,9 @@ window.onload = function (){
         }else if(e.code == "KeyA" && e.ctrlKey){
             e.preventDefault
             addMark()
+        }else if(e.code.includes("Digit")){
+            e.preventDefault()
+            videoElement.playbackRate = Number(e.code.split("").slice(-1)[0])
         }
     })
 }

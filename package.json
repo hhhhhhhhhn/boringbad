@@ -1,6 +1,6 @@
 {
   "name": "boringbad",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A tool for extracting highlights from a long video.",
   "main": "index.js",
   "scripts": {
