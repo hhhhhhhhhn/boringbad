@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, globalShortcut, dialog } = require('electron')
-fs = require('fs')
-const { exec } = require('child_process');
+const fs = require("fs")
+const util = require("util")
+const exec = util.promisify(require('child_process').exec)
 
 function createWindow() {
     // Create the browser window.
@@ -56,29 +57,27 @@ ipcMain.on("getFile", (event, ...args) => {
 
 // Exporting
 
-ipcMain.on("export", async (event, ...args) => {
-    args[1] = JSON.parse(args[1])
-
+ipcMain.on("export", async (event, hls, dir) => {
     var extension = "." + currentFile.split(".").slice(-1)[0]
     var fileNames = []
 
-    digits = String(args[0].length - 1).length
-    for (var i = 0; i < args[0].length; i++) {
-        fileNames.push(args[1] + "/highlight" + "0".repeat(digits - String(i).length) + String(i) + extension)
+    var digits = String(hls.length - 1).length
+    for (var i = 0; i < hls.length; i++) {
+        fileNames.push(dir + "/highlight" + "0".repeat(digits - String(i).length) + String(i) + extension)
     }
 
     var i = 0
-    for (var hl of args[0]) {
-        exec(`ffmpeg -i "${currentFile}" -ss ${hl[0]} -t ${hl[1] + 0.1 - hl[0]} "${fileNames[i]}"`, (err, stdout, stderr) => {
-            if (err) {
-                event.reply("export", "Failed exporting")
-                return
-            }
-        })
-        i++
+    event.reply("export", `exporting ${hls.length} clips`)
+    for (var hl of hls) {
+        try{
+            await exec(`ffmpeg -i "${currentFile}" -ss ${hl[0]} -t ${hl[1] + 0.1 - hl[0]} "${fileNames[i]}"`)
+            i++
+        }
+        catch{
+            event.reply("export", "failed exporting clip")
+        }
     }
-
-    event.reply("export", `exporting ${args[0].length} clips`)
+    event.reply("export", `exported ${i} clips successfully`)
 })
 
 // Marking

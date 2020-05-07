@@ -27,7 +27,7 @@ function exportClips(){
     for(var i = 0; i < highlightsSort.length; i++){
         highlightsSort[i].sort((a, b) => a - b)
     }
-    ipcRenderer.send("export", highlightsSort, JSON.stringify(dialog.showOpenDialogSync({ properties:["openDirectory"] })))
+    ipcRenderer.send("export", highlightsSort, dialog.showOpenDialogSync({ properties:["openDirectory"] })[0])
 }
 ipcRenderer.on("export", (event, ...args)=>{alert(args[0])})
 
